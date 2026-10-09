@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10100f">
+  <meta name="description" content="Entra nel mondo di Santy: musica, video e nuovi suoni.">
+  <title>SANTY — Link ufficiali</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f7f5f0;
+      --muted: #b9b8b2;
+      --acid: #62d8ff;
+      --panel: rgba(18, 19, 17, .73);
+      --line: rgba(255, 255, 255, .15);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-width: 320px;
+      min-height: 100vh;
+      margin: 0;
+      background: #10100f;
+      color: var(--ink);
+      font-family: "DM Sans", sans-serif;
+    }
+
+    button, a { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 2px solid var(--acid);
+      outline-offset: 4px;
+    }
+
+    .backdrop {
+      position: fixed;
+      z-index: -2;
+      inset: 0;
+      overflow: hidden;
+      background: #111 url("FOTO/avatar.jpg") center 38% / cover no-repeat;
+    }
+
+    .backdrop video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 45%;
+      filter: saturate(.72);
+    }
+
+    .backdrop::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(7, 8, 7, .72), rgba(7, 8, 7, .24) 54%, rgba(7, 8, 7, .48)),
+        linear-gradient(0deg, #10100f 1%, rgba(16, 16, 15, .78) 24%, rgba(16, 16, 15, .1) 75%, rgba(16, 16, 15, .48));
+    }
+
+    .grain {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      pointer-events: none;
+      opacity: .12;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.92' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.24'/%3E%3C/svg%3E");
+    }
+
+    .topbar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 28px clamp(22px, 5vw, 76px);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .2em;
+    }
+
+    .wordmark { font-family: "Space Grotesk", sans-serif; font-size: 1rem; }
+    .availability { display: flex; align-items: center; gap: 9px; color: #e0dfd9; letter-spacing: .12em; }
+    .availability::before {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--acid);
+      box-shadow: 0 0 14px var(--acid);
+      content: "";
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(340px, .85fr);
+      align-items: center;
+      gap: clamp(44px, 8vw, 130px);
+      width: min(1120px, calc(100% - 48px));
+      min-height: calc(100vh - 118px);
+      margin: 0 auto;
+      padding: 36px 0 70px;
+    }
+
+    .intro { animation: rise-in .8s cubic-bezier(.2, .7, .2, 1) both; }
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 19px;
+      color: var(--acid);
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+    .eyebrow::before { width: 34px; height: 1px; background: currentColor; content: ""; }
+
+    h1 {
+      margin: 0 0 15px -5px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(5.5rem, 15vw, 11.5rem);
+      font-weight: 700;
+      letter-spacing: -.105em;
+      line-height: .78;
+    }
+
+    .subtitle {
+      max-width: 420px;
+      margin: 28px 0 31px;
+      color: #e5e2da;
+      font-size: clamp(1rem, 2vw, 1.18rem);
+      line-height: 1.65;
+    }
+
+    .links { display: grid; gap: 11px; max-width: 430px; }
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 63px;
+      padding: 0 19px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: rgba(15, 16, 15, .58);
+      color: var(--ink);
+      text-decoration: none;
+      backdrop-filter: blur(12px);
+      transition: border-color .2s ease, background .2s ease, transform .2s ease;
+    }
+    .link-card:hover { transform: translateY(-2px); border-color: rgba(216, 255, 98, .72); background: rgba(25, 27, 22, .8); }
+    .link-label { display: flex; align-items: center; gap: 13px; font-weight: 600; }
+    .link-icon {
+      display: grid;
+      width: 32px;
+      height: 32px;
+      place-items: center;
+      border-radius: 9px;
+      background: rgba(255, 255, 255, .1);
+      color: var(--acid);
+      font-size: .75rem;
+      font-weight: 700;
+    }
+    .arrow { color: var(--acid); font-size: 1.1rem; }
+
+    .music-card {
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .19);
+      border-radius: 18px;
+      background: var(--panel);
+      box-shadow: 0 24px 90px rgba(0, 0, 0, .38);
+      backdrop-filter: blur(22px);
+      animation: rise-in .9s .12s cubic-bezier(.2, .7, .2, 1) both;
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 19px 21px 15px;
+      border-bottom: 1px solid rgba(255, 255, 255, .1);
+    }
+    .card-heading strong { font-family: "Space Grotesk", sans-serif; font-size: .95rem; }
+    .live-label { color: var(--acid); font-size: .64rem; font-weight: 700; letter-spacing: .16em; }
+
+    .now-playing {
+      display: grid;
+      grid-template-columns: 60px 1fr 42px;
+      align-items: center;
+      gap: 14px;
+      padding: 20px 21px 15px;
+    }
+    .cover {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      background: #30352a url("FOTO/avatar.jpg") center / cover;
+      box-shadow: 0 5px 22px rgba(0, 0, 0, .3);
+    }
+    .track-title { overflow: hidden; margin: 0 0 5px; font-weight: 700; text-overflow: ellipsis; white-space: nowrap; }
+    .track-artist { margin: 0; color: var(--muted); font-size: .82rem; }
+    .play-button {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: var(--acid);
+      color: #171a10;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .play-button:hover { transform: scale(1.07); box-shadow: 0 0 25px rgba(216, 255, 98, .28); }
+
+    .progress-wrap { padding: 0 21px 10px; }
+    .progress {
+      display: block;
+      width: 100%;
+      height: 4px;
+      margin: 4px 0 8px;
+      border-radius: 8px;
+      appearance: none;
+      background: rgba(255, 255, 255, .23);
+      cursor: pointer;
+    }
+    .progress::-webkit-slider-thumb { width: 9px; height: 9px; border: 0; border-radius: 50%; appearance: none; background: var(--acid); }
+    .progress::-moz-range-thumb { width: 9px; height: 9px; border: 0; border-radius: 50%; background: var(--acid); }
+    .time-row { display: flex; justify-content: space-between; color: #c1c0b9; font-size: .68rem; font-variant-numeric: tabular-nums; }
+
+    .track-list { padding: 3px 10px 10px; }
+    .track {
+      display: grid;
+      grid-template-columns: 25px 1fr auto;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 48px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 9px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+      transition: background .18s ease;
+    }
+    .track:hover, .track[aria-current="true"] { background: rgba(255, 255, 255, .08); }
+    .track-number { color: #aaa9a3; font-size: .72rem; font-variant-numeric: tabular-nums; }
+    .track-name { font-size: .83rem; font-weight: 500; }
+    .track-length { color: #aaa9a3; font-size: .72rem; font-variant-numeric: tabular-nums; }
+    .player-message { min-height: 18px; margin: 0; padding: 0 21px 15px; color: #ffcfaa; font-size: .75rem; }
+    audio { display: none; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 0 clamp(22px, 5vw, 76px) 22px;
+      color: rgba(255, 255, 255, .55);
+      font-size: .68rem;
+      letter-spacing: .08em;
+    }
+    .footer-note { display: flex; align-items: center; gap: 8px; }
+    .footer-note span { color: var(--acid); }
+
+    @keyframes rise-in {
+      from { transform: translateY(18px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (min-width: 1500px) {
+      main { min-height: calc(100vh - 135px); }
+    }
+    @media (max-width: 760px) {
+      .topbar { padding-top: 21px; padding-bottom: 10px; }
+      .availability { font-size: .58rem; }
+      main {
+        grid-template-columns: 1fr;
+        gap: 34px;
+        width: min(480px, calc(100% - 40px));
+        min-height: auto;
+        padding: 56px 0 48px;
+      }
+      h1 { font-size: clamp(5.7rem, 25vw, 8.2rem); }
+      .subtitle { margin: 22px 0 24px; }
+      .links { max-width: none; }
+      .music-card { width: 100%; }
+      footer { gap: 12px; font-size: .6rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+      .backdrop video { visibility: hidden; }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <video autoplay muted loop playsinline poster="FOTO/avatar.jpg">
+      <source src="FOTO/SANTY_BG.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="wordmark">S / T</div>
+    <div class="availability">MUSICA FUORI ORA</div>
+  </header>
+
+  <main>
+    <section class="intro" aria-labelledby="artist-name">
+      <p class="eyebrow">Vous saurez qui je suis.</p>
+      <h1 id="artist-name">SANTY</h1>
+      <p class="subtitle">Prima o poi lo capirete.<br>SG OVUNQUE</p>
+
+      <nav class="links" aria-label="Link musicali">
+        <a class="link-card" href="https://open.spotify.com/search/Santy" target="_blank" rel="noopener noreferrer">
+          <span class="link-label"><span class="link-icon" aria-hidden="true">S</span>Ascolta su Spotify</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="link-card" href="https://www.youtube.com/results?search_query=Santy+musica" target="_blank" rel="noopener noreferrer">
+          <span class="link-label"><span class="link-icon" aria-hidden="true">▶</span>Guarda su YouTube</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+        <a class="link-card" href="https://www.tiktok.com/search?q=Santy%20musica" target="_blank" rel="noopener noreferrer">
+          <span class="link-label"><span class="link-icon" aria-hidden="true">♪</span>Scopri su TikTok</span>
+          <span class="arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </section>
+
+    <section class="music-card" aria-label="Player musicale">
+      <div class="card-heading">
+        <strong>ASCOLTA IN ANTEPRIMA</strong>
+        <span class="live-label">SANTY RADIO</span>
+      </div>
+      <div class="now-playing">
+        <div class="cover" role="img" aria-label="Foto di Santy"></div>
+        <div>
+          <p class="track-title" id="track-title">c'est pa ma vie</p>
+          <p class="track-artist">Santy · Singolo</p>
+        </div>
+        <button class="play-button" id="play-button" type="button" aria-label="Riproduci">▶</button>
+      </div>
+      <div class="progress-wrap">
+        <input class="progress" id="progress" type="range" min="0" max="100" value="0" aria-label="Posizione del brano">
+        <div class="time-row"><span id="current-time">0:00</span><span id="duration">0:00</span></div>
+      </div>
+      <div class="track-list" id="track-list" aria-label="Brani">
+        <button class="track" type="button" data-index="0" aria-current="true">
+          <span class="track-number">01</span><span class="track-name">c'est pa ma vie</span><span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="1">
+          <span class="track-number">02</span><span class="track-name">ghetto blaster</span><span class="track-length">—:—</span>
+        </button>
+      </div>
+      <p class="player-message" id="player-message" role="status" aria-live="polite"></p>
+      <audio id="audio" preload="metadata"></audio>
+    </section>
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> SANTY</span>
+    <span class="footer-note"><span>✳</span> FATTO PER ASCOLTARE</span>
+  </footer>
+
+  <script>
+    (() => {
+      const tracks = [
+        { title: "c'est pa ma vie", src: "CANZONI/c'est%20pa%20ma%20vie.mp3" },
+        { title: "ghetto blaster", src: "CANZONI/ghetto%20blaster.mp3" }
+      ];
+      const audio = document.querySelector("#audio");
+      const playButton = document.querySelector("#play-button");
+      const title = document.querySelector("#track-title");
+      const progress = document.querySelector("#progress");
+      const currentTime = document.querySelector("#current-time");
+      const duration = document.querySelector("#duration");
+      const message = document.querySelector("#player-message");
+      const trackButtons = [...document.querySelectorAll(".track")];
+      let activeTrack = 0;
+
+      const formatTime = (seconds) => {
+        if (!Number.isFinite(seconds)) return "0:00";
+        const minutes = Math.floor(seconds / 60);
+        return `${minutes}:${String(Math.floor(seconds % 60)).padStart(2, "0")}`;
+      };
+
+      const loadTrack = (index) => {
+        activeTrack = index;
+        audio.src = tracks[index].src;
+        title.textContent = tracks[index].title;
+        progress.value = "0";
+        currentTime.textContent = "0:00";
+        duration.textContent = "0:00";
+        message.textContent = "";
+        trackButtons.forEach((button, buttonIndex) => {
+          if (buttonIndex === index) button.setAttribute("aria-current", "true");
+          else button.removeAttribute("aria-current");
+        });
+      };
+
+      const play = async () => {
+        message.textContent = "";
+        try {
+          await audio.play();
+        } catch {
+          message.textContent = "Impossibile riprodurre il brano. Verifica che i file audio siano presenti.";
+        }
+      };
+
+      playButton.addEventListener("click", () => {
+        if (audio.paused) play();
+        else audio.pause();
+      });
+
+      trackButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const index = Number(button.dataset.index);
+          loadTrack(index);
+          play();
+        });
+      });
+
+      audio.addEventListener("play", () => {
+        playButton.textContent = "Ⅱ";
+        playButton.setAttribute("aria-label", "Metti in pausa");
+      });
+      audio.addEventListener("pause", () => {
+        playButton.textContent = "▶";
+        playButton.setAttribute("aria-label", "Riproduci");
+      });
+      audio.addEventListener("loadedmetadata", () => {
+        duration.textContent = formatTime(audio.duration);
+        const length = trackButtons[activeTrack].querySelector(".track-length");
+        length.textContent = formatTime(audio.duration);
+      });
+      audio.addEventListener("timeupdate", () => {
+        currentTime.textContent = formatTime(audio.currentTime);
+        if (Number.isFinite(audio.duration) && audio.duration > 0) {
+          progress.value = String((audio.currentTime / audio.duration) * 100);
+        }
+      });
+      audio.addEventListener("ended", () => {
+        const nextTrack = (activeTrack + 1) % tracks.length;
+        loadTrack(nextTrack);
+        play();
+      });
+      audio.addEventListener("error", () => {
+        message.textContent = "File audio non disponibile. Controlla la cartella CANZONI.";
+      });
+      progress.addEventListener("input", () => {
+        if (Number.isFinite(audio.duration)) audio.currentTime = (Number(progress.value) / 100) * audio.duration;
+      });
+
+      loadTrack(0);
+      document.querySelector("#year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
