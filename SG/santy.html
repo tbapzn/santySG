@@ -787,14 +787,6 @@
         else audio.pause();
       });
 
-      const play = async () => {
-        message.textContent = "";
-        try {
-          await audio.play();
-        } catch {
-          message.textContent = "Impossibile riprodurre il brano. Verifica che i file audio siano presenti.";
-        }
-      };
 
       trackButtons.forEach((button) => {
         button.addEventListener("click", () => {
@@ -834,8 +826,6 @@
         loadTrack((activeTrack + 1) % tracks.length);
         play();
       });
-      audio.addEventListener("error", () => {
-        message.textContent = "File audio non disponibile. Controlla la cartella CANZONI.";
       });
       progress.addEventListener("input", () => {
         if (Number.isFinite(audio.duration)) {
