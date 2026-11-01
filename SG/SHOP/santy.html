@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#050506">
+  <meta name="description" content="Merch ufficiale di SANTY.">
+  <meta property="og:title" content="SANTY | Shop">
+  <meta property="og:description" content="Scopri il merch ufficiale di SANTY.">
+  <meta property="og:image" content="../FOTO/cover.jpg">
+  <title>SANTY | Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Inter:wght@400;500;600;700&family=Permanent+Marker&family=UnifrakturMaguntia&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #f4f1ea;
+      --muted: #9b9a96;
+      --line: rgba(255, 255, 255, .14);
+      --glass: rgba(10, 11, 12, .62);
+    }
+
+    * { box-sizing: border-box; }
+
+    html, body { margin: 0; min-height: 100%; }
+
+    button, a { font: inherit; }
+    button:focus-visible, a:focus-visible, input:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+
+    .backdrop {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      overflow: hidden;
+      background: #08080a url("../FOTO/cover.jpg") center 12% / cover no-repeat;
+    }
+
+    .backdrop::before,
+    .backdrop::after {
+      position: absolute;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+    }
+
+    .backdrop::before {
+      background:
+        radial-gradient(90% 50% at 50% 12%, rgba(255, 236, 190, .12), transparent 42%),
+        linear-gradient(180deg, rgba(5, 5, 6, .38) 0%, rgba(5, 5, 6, .08) 22%, rgba(5, 5, 6, .18) 48%, rgba(5, 5, 6, .78) 72%, #050506 100%);
+    }
+
+    .backdrop::after {
+      background:
+        linear-gradient(90deg, rgba(5, 5, 6, .38), transparent 22%, transparent 78%, rgba(5, 5, 6, .38)),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+      opacity: .18;
+      mix-blend-mode: overlay;
+    }
+
+    body {
+      isolation: isolate;
+      min-width: 320px;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      background: #050506;
+      color: var(--ink);
+      font-family: Inter, system-ui, sans-serif;
+    }
+
+    .page {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      width: min(440px, calc(100% - 28px));
+      flex: 1;
+      margin: 0 auto;
+      padding: 8px 0 12px;
+    }
+
+    .topbar {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      width: 100%;
+      padding: 14px clamp(16px, 4vw, 48px) 6px;
+    }
+
+    .menu-btn {
+      justify-self: end;
+      display: grid;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      border: 0;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+    }
+
+    .shop-mark {
+      display: grid;
+      text-decoration: none;
+      width: 40px;
+      height: 40px;
+      place-items: center;
+      color: var(--ink);
+    }
+
+    .shop-mark svg { width: 21px; height: 21px; }
+
+    .menu-btn span,
+    .menu-btn span::before,
+    .menu-btn span::after {
+      display: block;
+      width: 18px;
+      height: 1.5px;
+      background: currentColor;
+    }
+
+    .menu-btn span { position: relative; }
+    .menu-btn span::before,
+    .menu-btn span::after {
+      position: absolute;
+      left: 0;
+      content: "";
+    }
+    .menu-btn span::before { top: -6px; }
+    .menu-btn span::after { top: 6px; }
+
+    .hero {
+      position: relative;
+      min-height: clamp(168px, 26vh, 250px);
+    }
+
+    .sg-mark {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+    }
+
+    .links { display: grid; gap: 10px; }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 52px;
+      padding: 0 16px;
+      border: 1px solid rgba(255, 255, 255, .16);
+      border-radius: 999px;
+      background: rgba(12, 13, 14, .72);
+      color: var(--ink);
+      text-decoration: none;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, .28);
+      backdrop-filter: blur(16px);
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255, 255, 255, .34);
+      background: rgba(18, 19, 21, .86);
+    }
+
+    .link-card svg { width: 18px; height: 18px; flex: none; }
+    .link-card span { flex: 1; font-size: .92rem; font-weight: 600; }
+    .link-card .arrow { flex: none; color: #cfcbc3; font-size: 1.05rem; }
+
+    .music-card {
+      overflow: hidden;
+      margin-top: 16px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 22px;
+      background: linear-gradient(180deg, rgba(16, 17, 19, .86), rgba(8, 9, 10, .9));
+      box-shadow: 0 22px 50px rgba(0, 0, 0, .45);
+      backdrop-filter: blur(22px);
+    }
+
+    .card-heading {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 16px 18px 8px;
+    }
+
+    .release-kicker {
+      margin: 0;
+      color: #d8d4cb;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+    }
+
+    .release-title {
+      margin: 4px 0 0;
+      color: #f7f4ee;
+      font-family: "Permanent Marker", "Comic Sans MS", cursive;
+      font-size: 1.85rem;
+      font-weight: 400;
+      letter-spacing: .04em;
+      line-height: .9;
+      text-shadow: 2px 3px 0 rgba(0, 0, 0, .55);
+      transform: rotate(-4deg);
+    }
+
+    .now-playing {
+      display: grid;
+      grid-template-columns: 64px 1fr 46px;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 18px 8px;
+    }
+
+    .cover {
+      width: 64px;
+      height: 64px;
+      border-radius: 8px;
+      background: #1a1a1c url("../FOTO/cover.jpg") center / cover;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, .45);
+    }
+
+    .track-title {
+      overflow: hidden;
+      margin: 0 0 3px;
+      font-size: .98rem;
+      font-weight: 700;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .track-artist { margin: 0; color: var(--muted); font-size: .78rem; }
+
+    .play-button {
+      display: grid;
+      width: 46px;
+      height: 46px;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      background: #f3f1ec;
+      color: #111;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .play-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 22px rgba(255, 255, 255, .18);
+    }
+
+    .play-button svg { width: 16px; height: 16px; }
+
+    .progress-wrap { padding: 0 18px 8px; }
+
+    .progress {
+      display: block;
+      width: 100%;
+      height: 4px;
+      margin: 6px 0 8px;
+      border-radius: 99px;
+      appearance: none;
+      background: linear-gradient(90deg, #ece8e0 var(--played, 0%), rgba(255, 255, 255, .22) var(--played, 0%));
+      cursor: pointer;
+    }
+
+    .progress::-webkit-slider-thumb {
+      width: 11px;
+      height: 11px;
+      border: 0;
+      border-radius: 50%;
+      appearance: none;
+      background: #f4f1ea;
+    }
+
+    .progress::-moz-range-thumb {
+      width: 11px;
+      height: 11px;
+      border: 0;
+      border-radius: 50%;
+      background: #f4f1ea;
+    }
+
+    .time-row {
+      display: flex;
+      justify-content: space-between;
+      color: #8f8e89;
+      font-size: .68rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .track-list {
+      margin-top: 4px;
+      border-top: 1px solid rgba(255, 255, 255, .08);
+      padding: 4px 8px 10px;
+    }
+
+    .track {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      align-items: center;
+      gap: 8px;
+      width: 100%;
+      min-height: 42px;
+      padding: 0 10px;
+      border: 0;
+      border-radius: 10px;
+      background: transparent;
+      color: var(--ink);
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .track:hover,
+    .track[aria-current="true"] { background: rgba(255, 255, 255, .06); }
+    .track[aria-current="true"] .track-name { font-weight: 700; }
+    .track-number, .track-length { color: #8d8c87; font-size: .72rem; font-variant-numeric: tabular-nums; }
+    .track-name { font-size: .84rem; font-weight: 500; }
+
+    .player-message {
+      min-height: 0;
+      margin: 0;
+      padding: 0 18px 12px;
+      color: #ffc8a4;
+      font-size: .74rem;
+    }
+
+    audio { display: none; }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      width: min(440px, calc(100% - 28px));
+      margin: 0 auto;
+      padding: 10px 4px 18px;
+      color: rgba(255, 255, 255, .48);
+      font-size: .64rem;
+      letter-spacing: .1em;
+    }
+
+    @media (min-width: 760px) {
+      footer {
+        width: 100%;
+        padding: 10px clamp(16px, 4vw, 48px) 22px;
+      }
+    }
+
+    .footer-note { display: flex; align-items: center; gap: 7px; }
+    .footer-note span { color: #f0ece3; }
+
+    .drawer {
+      position: absolute;
+      z-index: 20;
+      top: 58px;
+      right: 0;
+      display: none;
+      width: min(230px, 100%);
+    }
+
+    .drawer.open { display: block; }
+    .drawer nav {
+      padding: 10px 16px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(12, 13, 14, .96);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .45);
+    }
+
+    .drawer a {
+      display: block;
+      padding: 12px 4px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    @media (min-width: 900px) {
+      .page { width: min(430px, 100%); padding-top: 18px; }
+      .hero { min-height: 250px; }
+      .backdrop { background-position: center 8%; }
+    }
+
+
+    /* ===== SHOP ===== */
+    .shop {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin-top: 16px;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 22px;
+      background: #0a0a0b;
+      box-shadow: 0 22px 50px rgba(0, 0, 0, .5);
+      scroll-margin-top: 12px;
+    }
+
+    .hero, .links, .music-card { display: none; }
+
+    .shop-bg {
+      position: absolute;
+      z-index: -3;
+      inset: -6%;
+      background: #111 url("chiesa_bn.jpg") center 30% / cover no-repeat;
+      filter: grayscale(1) contrast(1.2) brightness(.62);
+      animation: shop-drift 26s ease-in-out infinite alternate;
+    }
+
+    .shop::before {
+      position: absolute;
+      z-index: -2;
+      inset: 0;
+      content: "";
+      background:
+        radial-gradient(60% 42% at 50% 46%, rgba(255, 255, 255, .26), transparent 70%),
+        linear-gradient(180deg, rgba(5, 5, 6, .55) 0%, rgba(5, 5, 6, .05) 30%, rgba(5, 5, 6, .35) 62%, rgba(5, 5, 6, .94) 100%);
+    }
+
+    .shop::after {
+      position: absolute;
+      z-index: -1;
+      inset: 0;
+      content: "";
+      pointer-events: none;
+      background:
+        repeating-linear-gradient(0deg, rgba(0, 0, 0, .16) 0 1px, transparent 1px 3px),
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      opacity: .5;
+      animation: shop-grain 1.2s steps(4) infinite;
+    }
+
+    .shop-head { padding: 16px 18px 0; }
+
+    .shop-title {
+      margin: 4px 0 0;
+      font-family: UnifrakturMaguntia, "Times New Roman", serif;
+      font-size: 2.1rem;
+      font-weight: 400;
+      line-height: 1;
+      text-shadow: 0 3px 14px rgba(0, 0, 0, .7);
+    }
+
+    .shop-stage {
+      position: relative;
+      display: grid;
+      min-height: 330px;
+      place-items: center;
+      padding: 6px 18px 0;
+    }
+
+    .shop-stage::before {
+      position: absolute;
+      inset: 0;
+      content: "";
+      background: conic-gradient(from 180deg at 50% 38%, transparent 0 40deg, rgba(255, 255, 255, .10) 55deg, transparent 70deg 110deg, rgba(255, 255, 255, .08) 125deg, transparent 140deg 220deg, rgba(255, 255, 255, .08) 235deg, transparent 250deg 290deg, rgba(255, 255, 255, .10) 305deg, transparent 320deg);
+      -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
+      mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
+      animation: shop-rays 14s ease-in-out infinite alternate;
+    }
+
+    .shirt {
+      grid-area: 1 / 1;
+      width: min(300px, 80%);
+      height: auto;
+      filter: drop-shadow(0 26px 22px rgba(0, 0, 0, .7)) drop-shadow(0 0 28px rgba(255, 255, 255, .12));
+      opacity: 0;
+      transform: translateY(8px) scale(.96) rotate(-1.5deg);
+      transition: opacity .55s ease, transform .7s cubic-bezier(.2, .8, .2, 1);
+      pointer-events: none;
+    }
+
+    .shirt.on {
+      opacity: 1;
+      transform: none;
+      animation: shirt-float 6s ease-in-out infinite;
+    }
+
+    .shop-toggle {
+      position: absolute;
+      top: 10px;
+      right: 18px;
+      display: flex;
+      padding: 3px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 999px;
+      background: rgba(8, 8, 9, .6);
+      backdrop-filter: blur(10px);
+    }
+
+    .shop-toggle button {
+      min-height: 30px;
+      padding: 0 12px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: #b9b6ae;
+      font-size: .66rem;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s ease, color .2s ease;
+    }
+
+    .shop-toggle button[aria-pressed="true"] { background: #f3f1ec; color: #0a0a0b; }
+
+    .shop-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 8px 18px 18px;
+    }
+
+    .shop-name { margin: 0; font-size: .98rem; font-weight: 700; }
+    .shop-sub { margin: 3px 0 0; color: #a9a7a1; font-size: .74rem; }
+
+    .buy-btn {
+      display: inline-flex;
+      flex: none;
+      align-items: center;
+      gap: 8px;
+      min-height: 46px;
+      padding: 0 22px;
+      border-radius: 999px;
+      background: #f3f1ec;
+      color: #0a0a0b;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .16em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+
+    .buy-btn:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 0 26px rgba(255, 255, 255, .3); }
+    .buy-btn svg { width: 16px; height: 16px; }
+
+    @keyframes shop-drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.1) translate(-2%, 1.5%); } }
+    @keyframes shop-rays { from { transform: rotate(-3deg) scale(1); opacity: .7; } to { transform: rotate(3deg) scale(1.06); opacity: 1; } }
+    @keyframes shop-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(3%, 3%); } }
+    @keyframes shirt-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
+
+    @media (max-width: 380px) {
+      .shop-info { flex-direction: column; align-items: stretch; }
+      .buy-btn { justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation: none !important;
+        transition-duration: .01ms !important;
+      }
+      .hero { min-height: 220px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="shop-mark" href="#shop" aria-label="Vai allo shop" title="Shop">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6 8V6a6 6 0 0 1 12 0v2h3l-1.2 14H4.2L3 8h3zm2 0h8V6a4 4 0 0 0-8 0v2zm-2.8 2 .86 10h11.88l.86-10H6z"/></svg>
+    </a>
+    <button class="menu-btn" id="menu-btn" type="button" aria-label="Apri menu" aria-expanded="false" aria-controls="menu">
+      <span aria-hidden="true"></span>
+    </button>
+    <div class="drawer" id="menu" hidden>
+      <nav aria-label="Menu">
+        <a href="../santy.html">Musica</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page">
+    <section class="hero" aria-labelledby="artist-mark">
+      <h1 class="sg-mark" id="artist-mark">SG</h1>
+    </section>
+
+    <nav class="links" aria-label="Link ufficiali">
+      <a class="link-card" href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 1.6C6.26 1.6 1.6 6.26 1.6 12S6.26 22.4 12 22.4 22.4 17.74 22.4 12 17.74 1.6 12 1.6zm4.64 14.98a.64.64 0 0 1-.88.21c-2.4-1.47-5.43-1.8-9-.99a.64.64 0 1 1-.29-1.25c3.9-.88 7.2-.5 9.86 1.14a.64.64 0 0 1 .31.89zm1.24-2.76a.8.8 0 0 1-1.1.26c-2.75-1.7-6.94-2.19-10.2-1.2a.8.8 0 1 1-.46-1.53c3.73-1.13 8.32-.58 11.48 1.37a.8.8 0 0 1 .28 1.1zm.1-2.88c-3.3-1.96-8.74-2.14-11.88-1.18a.96.96 0 1 1-.56-1.84c3.62-1.1 9.63-.89 13.42 1.36a.96.96 0 1 1-.98 1.66z"/></svg>
+        <span>Ascolta su Spotify</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link-card" href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.6 15.5V8.5l6.4 3.5-6.4 3.5z"/></svg>
+        <span>Guarda su YouTube</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <a class="link-card" href="https://www.tiktok.com/@santyy_sg" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M14.5 3c.4 2.6 1.8 4.4 4.4 4.7v2.5c-1.5 0-2.9-.5-4.2-1.4v6.6c0 3.4-2.6 6-5.9 6.1A5.9 5.9 0 0 1 8.6 9.7v2.6a3.3 3.3 0 1 0 2.3 3.1V3h3.6z"/></svg>
+        <span>Scopri su TikTok</span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+    </nav>
+
+    <section class="music-card" aria-label="Player musicale">
+      <div class="card-heading">
+        <div>
+          <p class="release-kicker">NUOVO ALBUM</p>
+          <p class="release-title">FUORI ORA</p>
+        </div>
+      </div>
+
+      <div class="now-playing">
+        <div class="cover" role="img" aria-label="Copertina SANTY"></div>
+        <div>
+          <p class="track-title" id="track-title">SG</p>
+          <p class="track-artist">SANTY</p>
+        </div>
+        <button class="play-button" id="play-button" type="button" aria-label="Riproduci">
+          <svg id="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.5v13l11-6.5L8 5.5z"/></svg>
+        </button>
+      </div>
+
+      <div class="progress-wrap">
+        <input class="progress" id="progress" type="range" min="0" max="100" value="0" aria-label="Posizione del brano">
+        <div class="time-row"><span id="current-time">0:00</span><span id="duration">0:00</span></div>
+      </div>
+
+      <div class="track-list" id="track-list" aria-label="Brani">
+        <button class="track" type="button" data-index="0" aria-current="true">
+          <span class="track-number">01</span>
+          <span class="track-name">SG</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="1">
+          <span class="track-number">02</span>
+          <span class="track-name">SPOTLIGHT</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="2">
+          <span class="track-number">03</span>
+          <span class="track-name">DI NUOVO</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="3">
+          <span class="track-number">04</span>
+          <span class="track-name">APACHE</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="4">
+          <span class="track-number">05</span>
+          <span class="track-name">DI PIÙ</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="5">
+          <span class="track-number">06</span>
+          <span class="track-name">A LA VIE LA MORT</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="6">
+          <span class="track-number">07</span>
+          <span class="track-name">QUI MORIREMO</span>
+          <span class="track-length">—:—</span>
+        </button>
+        <button class="track" type="button" data-index="7">
+          <span class="track-number">08</span>
+          <span class="track-name">ALLA FINE</span>
+          <span class="track-length">—:—</span>
+        </button>
+      </div>
+      <p class="player-message" id="player-message" role="status" aria-live="polite"></p>
+      <audio id="audio" preload="metadata"></audio>
+    </section>
+
+    <section class="shop" id="shop" aria-labelledby="shop-title">
+      <div class="shop-bg" aria-hidden="true"></div>
+      <div class="shop-head">
+        <p class="release-kicker">MERCH UFFICIALE</p>
+        <h2 class="shop-title" id="shop-title">shop</h2>
+      </div>
+      <div class="shop-stage">
+        <div class="shop-toggle" role="group" aria-label="Vista maglia">
+          <button type="button" data-view="fronte" aria-pressed="true">Fronte</button>
+          <button type="button" data-view="retro" aria-pressed="false">Retro</button>
+        </div>
+        <img class="shirt on" data-view="fronte" src="maglia_fronte.png" alt="Maglia nera SB, fronte con logo gotico" width="757" height="799">
+        <img class="shirt" data-view="retro" src="maglia_retro.png" alt="Maglia nera SB, retro con croce e vetrata gotica" width="756" height="803">
+      </div>
+      <div class="shop-info">
+        <div>
+          <p class="shop-name">T-shirt SG · Nera</p>
+          <p class="shop-sub">Tutte le taglie · Affrettati</p>
+        </div>
+        <a class="buy-btn" href="https://www.instagram.com/_santy.sg?utm_source=ig_web_button_share_sheet&rpxt=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener noreferrer" aria-label="Acquista: scrivici in DM su Instagram">
+          Acquista
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7zm5 3.5a4.5 4.5 0 1 1 0 9 4.5 4.5 0 0 1 0-9zm0 2a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zm5.1-3.1a1.1 1.1 0 1 1 0 2.2 1.1 1.1 0 0 1 0-2.2z"/></svg>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <span>© <span id="year"></span> SANTY</span>
+    <span class="footer-note"><span>✳</span> FATTO PER ASCOLTARE</span>
+  </footer>
+
+  <script>
+    (() => {
+      const menuBtn = document.querySelector("#menu-btn");
+      const menu = document.querySelector("#menu");
+
+      const shirts = [...document.querySelectorAll(".shirt")];
+      const viewBtns = [...document.querySelectorAll(".shop-toggle button")];
+      viewBtns.forEach((btn) => btn.addEventListener("click", () => {
+        viewBtns.forEach((b) => b.setAttribute("aria-pressed", String(b === btn)));
+        shirts.forEach((img) => img.classList.toggle("on", img.dataset.view === btn.dataset.view));
+      }));
+
+      const closeMenu = () => {
+        menu.classList.remove("open");
+        menu.hidden = true;
+        menuBtn.setAttribute("aria-expanded", "false");
+      };
+
+      menuBtn.addEventListener("click", (event) => {
+        event.stopPropagation();
+        const open = menu.classList.toggle("open");
+        menu.hidden = !open;
+        menuBtn.setAttribute("aria-expanded", String(open));
+      });
+      menu.addEventListener("click", (event) => {
+        if (event.target.closest("a")) closeMenu();
+      });
+      document.addEventListener("click", (event) => {
+        if (!menu.classList.contains("open")) return;
+        if (!event.target.closest("#menu") && !event.target.closest("#menu-btn")) closeMenu();
+      });
+
+      document.querySelector("#year").textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
