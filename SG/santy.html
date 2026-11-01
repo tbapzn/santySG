@@ -71,7 +71,7 @@
     .backdrop::after {
       background:
         linear-gradient(90deg, rgba(5, 5, 6, .38), transparent 22%, transparent 78%, rgba(5, 5, 6, .38)),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.08'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E") center / cover no-repeat;
       opacity: .18;
       mix-blend-mode: overlay;
     }
@@ -190,6 +190,36 @@
     .link-card svg { width: 18px; height: 18px; flex: none; }
     .link-card span { flex: 1; font-size: .92rem; font-weight: 600; }
     .link-card .arrow { flex: none; color: #cfcbc3; font-size: 1.05rem; }
+
+    .video-card {
+      overflow: hidden;
+      margin-top: 18px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 22px;
+      background: rgba(15, 16, 18, .82);
+      box-shadow: 0 22px 50px rgba(0, 0, 0, .24);
+      backdrop-filter: blur(14px);
+    }
+
+    .video-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 18px 10px;
+      color: #d8d4cb;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+    }
+
+    .video-card video {
+      display: block;
+      width: 100%;
+      max-height: 260px;
+      object-fit: cover;
+      background: #09090a;
+    }
 
     .music-card {
       overflow: hidden;
@@ -351,6 +381,60 @@
 
     audio { display: none; }
 
+    .promo-banner {
+      position: fixed;
+      right: 18px;
+      bottom: 20px;
+      z-index: 30;
+      width: min(360px, calc(100vw - 26px));
+      padding: 14px 16px 12px;
+      border: 1px solid rgba(255, 255, 255, .12);
+      border-radius: 18px;
+      background: rgba(12, 13, 14, .9);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, .42);
+      backdrop-filter: blur(16px);
+      opacity: 0;
+      transform: translateY(12px);
+      pointer-events: none;
+      transition: opacity .25s ease, transform .25s ease;
+    }
+
+    .promo-banner.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .promo-banner p {
+      margin: 0 0 10px;
+      color: var(--ink);
+      font-size: .82rem;
+      line-height: 1.45;
+    }
+
+    .promo-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .promo-actions a {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 36px;
+      padding: 0 12px;
+      border: 1px solid rgba(255, 255, 255, .18);
+      border-radius: 999px;
+      color: var(--ink);
+      text-decoration: none;
+      background: rgba(255, 255, 255, .04);
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
     footer {
       display: flex;
       justify-content: space-between;
@@ -400,22 +484,22 @@
     }
 
     .drawer .made-by {
-  margin: 0;
-  padding: 2px 0 4px;
-  text-align: right;
-  color: rgba(255, 255, 255, .55);
-  font-size: .62rem;
-  letter-spacing: .14em;
-}
+   margin: 0;
+   padding: 2px 0 4px;
+   text-align: right;
+   color: rgba(255, 255, 255, .55);
+   font-size: .62rem;
+   letter-spacing: .14em;
+ }
 
 .drawer .made-by a {
-  display: inline;
-  padding: 0;
-  color: var(--ink);
-  font-weight: 800;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
+   display: inline;
+   padding: 0;
+   color: var(--ink);
+   font-weight: 800;
+   text-decoration: underline;
+   text-underline-offset: 3px;
+ }
 
     @media (min-width: 900px) {
       .page { width: min(430px, 100%); padding-top: 18px; }
@@ -465,7 +549,7 @@
       pointer-events: none;
       background:
         repeating-linear-gradient(0deg, rgba(0, 0, 0, .16) 0 1px, transparent 1px 3px),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.6'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.08'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
       mix-blend-mode: overlay;
       opacity: .5;
       animation: shop-grain 1.2s steps(4) infinite;
@@ -494,7 +578,7 @@
       position: absolute;
       inset: 0;
       content: "";
-      background: conic-gradient(from 180deg at 50% 38%, transparent 0 40deg, rgba(255, 255, 255, .10) 55deg, transparent 70deg 110deg, rgba(255, 255, 255, .08) 125deg, transparent 140deg 220deg, rgba(255, 255, 255, .08) 235deg, transparent 250deg 290deg, rgba(255, 255, 255, .10) 305deg, transparent 320deg);
+      background: conic-gradient(from 180deg at 50% 38%, transparent 0 40deg, rgba(255, 255, 255, .10) 55deg, transparent 70deg 110deg, rgba(255, 255, 255, .08) 125deg, transparent 140deg 220deg, rgba(255,255,255,.12) 240deg, transparent 270deg 320deg, rgba(255,255,255,.06) 335deg, transparent 360deg);
       -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
       mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
       animation: shop-rays 14s ease-in-out infinite alternate;
@@ -580,7 +664,7 @@
 
     @keyframes shop-drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.1) translate(-2%, 1.5%); } }
     @keyframes shop-rays { from { transform: rotate(-3deg) scale(1); opacity: .7; } to { transform: rotate(3deg) scale(1.06); opacity: 1; } }
-    @keyframes shop-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(3%, 3%); } }
+    @keyframes shop-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(1%, 2%); } }
     @keyframes shirt-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
 
     @media (max-width: 380px) {
@@ -627,21 +711,28 @@
 
     <nav class="links" aria-label="Link ufficiali">
       <a class="link-card" href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 1.6C6.26 1.6 1.6 6.26 1.6 12S6.26 22.4 12 22.4 22.4 17.74 22.4 12 17.74 1.6 12 1.6zm4.64 14.98a.64.64 0 0 1-.88.21c-2.4-1.47-5.43-1.8-9-.99a.64.64 0 1 1-.29-1.25c3.9-.88 7.2-.5 9.86 1.14a.64.64 0 0 1 .31.89zm1.24-2.76a.8.8 0 0 1-1.1.26c-2.75-1.7-6.94-2.19-10.2-1.2a.8.8 0 1 1-.46-1.53c3.73-1.13 8.32-.58 11.48 1.37a.8.8 0 0 1 .28 1.1zm.1-2.88c-3.3-1.96-8.74-2.14-11.88-1.18a.96.96 0 1 1-.56-1.84c3.62-1.1 9.63-.89 13.42 1.36a.96.96 0 1 1-.98 1.66z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#1DB954" d="M12 1.6C6.26 1.6 1.6 6.26 1.6 12S6.26 22.4 12 22.4 22.4 17.74 22.4 12 17.74 1.6 12 1.6zm4.64 14.98a.64.64 0 0 1-.88.21c-.27-.16-1.9-1.15-4.79-1.15-1.73 0-3.49.42-5.19 1.22a.64.64 0 0 1-.77-.96c1.82-.98 3.82-1.46 6.04-1.46 3.1 0 5.18 1.14 5.59 1.34.3.17.39.54.2.8zm1.04-2.66a.8.8 0 0 1-1.1.28c-.32-.19-2.4-1.46-5.35-1.46-2.1 0-4.17.46-5.78 1.27a.8.8 0 1 1-.85-1.36c1.87-.97 4.16-1.48 6.56-1.48 3.29 0 5.9 1.62 6.52 1.98.37.2.5.66.2 1.07zm.12-2.76c-.42.18-3.18 1.78-6.68 1.78-2.11 0-4.13-.46-5.7-1.25a.89.89 0 0 1-.38-1.2.89.89 0 0 1 1.2-.38c1.38.68 3.17 1.03 5.05 1.03 3.16 0 5.4-1.35 5.87-1.64a.9.9 0 0 1 1.2.34.89.89 0 0 1-.36 1.22z"/></svg>
         <span>Ascolta su Spotify</span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
       <a class="link-card" href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.6 15.5V8.5l6.4 3.5-6.4 3.5z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#FF0000" d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31.5 31.5 0 0 0 0 12a31.5 31.5 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31.5 31.5 0 0 0 24 12a31.5 31.5 0 0 0-.5-5.8zM9.6 15.8V8.2l7.1 3.8-7.1 3.8z"/></svg>
         <span>Guarda su YouTube</span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
       <a class="link-card" href="https://www.tiktok.com/@santyy_sg" target="_blank" rel="noopener noreferrer">
-        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M14.5 3c.4 2.6 1.8 4.4 4.4 4.7v2.5c-1.5 0-2.9-.5-4.2-1.4v6.6c0 3.4-2.6 6-5.9 6.1A5.9 5.9 0 0 1 8.6 9.7v2.6a3.3 3.3 0 1 0 2.3 3.1V3h3.6z"/></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#fff" d="M14.5 3c.4 2.6 1.8 4.4 4.4 4.7v2.5c-1.5 0-2.9-.5-4.2-1.4v6.6c0 3.4-2.6 6-5.9 6.1A5.9 5.9 0 0 1 8.6 9.7v2.6a3.3 3.3 0 1 0 2.4 3.1v-8.7c1.6-.5 3.2-.7 4.9-.6v2.6c-.8.1-1.6.4-2.4.8v2.3a3.3 3.3 0 0 0 3.2 3.1c1.8 0 3.3-1.5 3.3-3.3V3h-3.9z"/></svg>
         <span>Scopri su TikTok</span>
         <span class="arrow" aria-hidden="true">↗</span>
       </a>
     </nav>
+
+    <section class="video-card" aria-label="Video ufficiale">
+      <div class="video-head">Video</div>
+      <video id="promo-video" controls preload="metadata" playsinline poster="FOTO/cover.jpg">
+        <source src="FOTO/SANTY_BG.mp4" type="video/mp4">
+      </video>
+    </section>
 
     <section class="music-card" aria-label="Player musicale">
       <div class="card-heading">
@@ -720,6 +811,14 @@
     <span class="footer-note"><span>𐀼</span> VERSANE DI PIÙ</span>
   </footer>
 
+  <div id="listen-banner" class="promo-banner" role="dialog" aria-live="polite" aria-label="Scelta ascolto">
+    <p>Hai appena ascoltato 20 secondi: ti va di proseguire su Spotify o YouTube?</p>
+    <div class="promo-actions">
+      <a href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">Spotify</a>
+      <a href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">YouTube</a>
+    </div>
+  </div>
+
   <script>
     (() => {
       const tracks = [
@@ -743,9 +842,12 @@
       const trackButtons = [...document.querySelectorAll(".track")];
       const menuBtn = document.querySelector("#menu-btn");
       const menu = document.querySelector("#menu");
+      const promoBanner = document.querySelector("#listen-banner");
+      const promoVideo = document.querySelector("#promo-video");
       const playPath = "M8 5.5v13l11-6.5L8 5.5z";
       const pausePath = "M7 6h3.2v12H7zm6.8 0H17v12h-3.2z";
       let activeTrack = 0;
+      let bannerTriggered = false;
 
       const formatTime = (seconds) => {
         if (!Number.isFinite(seconds)) return "0:00";
@@ -756,6 +858,13 @@
       const setPlayed = (value) => {
         progress.style.setProperty("--played", `${value}%`);
         progress.value = String(value);
+      };
+
+      const showPromoBanner = () => {
+        if (bannerTriggered) return;
+        bannerTriggered = true;
+        audio.pause();
+        promoBanner.classList.add("visible");
       };
 
       const loadTrack = (index) => {
@@ -788,6 +897,8 @@
 
       trackButtons.forEach((button) => {
         button.addEventListener("click", () => {
+          bannerTriggered = false;
+          promoBanner.classList.remove("visible");
           loadTrack(Number(button.dataset.index));
           play();
         });
@@ -810,6 +921,9 @@
         if (Number.isFinite(audio.duration) && audio.duration > 0) {
           setPlayed((audio.currentTime / audio.duration) * 100);
         }
+        if (audio.currentTime >= 20 && !bannerTriggered) {
+          showPromoBanner();
+        }
       });
       audio.addEventListener("ended", () => {
         loadTrack((activeTrack + 1) % tracks.length);
@@ -823,6 +937,18 @@
           audio.currentTime = (Number(progress.value) / 100) * audio.duration;
           setPlayed(Number(progress.value));
         }
+      });
+
+      promoVideo.addEventListener("play", async () => {
+        if (!bannerTriggered) {
+          try {
+            await audio.play();
+          } catch {}
+        }
+      });
+
+      promoVideo.addEventListener("pause", () => {
+        audio.pause();
       });
 
       const closeMenu = () => {
