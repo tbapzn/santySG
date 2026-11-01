@@ -31,28 +31,28 @@
       outline-offset: 3px;
     }
 
-.backdrop {
-  position: fixed;
-  z-index: -1;
-  inset: 0;
-  overflow: hidden;
-  background: #0505064d;
-  --bg-x: 50%;   /* posizione orizzontale: la manopola principale su telefono */
-  --bg-y: -35%;   /* posizione verticale: conta soprattutto su schermi larghi */
-}
+    .backdrop {
+      position: fixed;
+      z-index: -1;
+      inset: 0;
+      overflow: hidden;
+      background: #0505064d;
+      --bg-x: 50%;
+      --bg-y: -35%;
+    }
 
-.backdrop-img {
-  position: absolute;
-  inset: -1%;    /* margine extra, così i bordi non compaiono durante l'animazione */
-  background: url("FOTO/cover.jpg") var(--bg-x) var(--bg-y) / cover no-repeat;
-  animation: bg-drift 7s ease-in-out infinite alternate;
-  will-change: transform;
-}
+    .backdrop-img {
+      position: absolute;
+      inset: -1%;
+      background: url("FOTO/cover.jpg") var(--bg-x) var(--bg-y) / cover no-repeat;
+      animation: bg-drift 7s ease-in-out infinite alternate;
+      will-change: transform;
+    }
 
-@keyframes bg-drift {
-  from { transform: scale(1) translate3d(0, 0, 0); }
-  to   { transform: scale(1.1) translate3d(-2%, 1.5%, 0); }
-}
+    @keyframes bg-drift {
+      from { transform: scale(1) translate3d(0, 0, 0); }
+      to   { transform: scale(1.1) translate3d(-2%, 1.5%, 0); }
+    }
 
     .backdrop::before,
     .backdrop::after {
@@ -379,42 +379,82 @@
       font-size: .74rem;
     }
 
-    audio { display: none; }
-
     .promo-banner {
       position: fixed;
-      right: 18px;
-      bottom: 20px;
+      left: 50%;
+      top: 50%;
       z-index: 30;
-      width: min(360px, calc(100vw - 26px));
-      padding: 14px 16px 12px;
+      width: min(460px, calc(100vw - 28px));
+      padding: 18px 18px 16px;
       border: 1px solid rgba(255, 255, 255, .12);
-      border-radius: 18px;
-      background: rgba(12, 13, 14, .9);
-      box-shadow: 0 18px 40px rgba(0, 0, 0, .42);
-      backdrop-filter: blur(16px);
+      border-radius: 22px;
+      background: rgba(11, 12, 14, .9);
+      box-shadow: 0 28px 54px rgba(0, 0, 0, .46);
+      backdrop-filter: blur(18px);
       opacity: 0;
-      transform: translateY(12px);
-      pointer-events: none;
-      transition: opacity .25s ease, transform .25s ease;
+      visibility: hidden;
+      transform: translate(-50%, -45%);
+      transition: opacity .25s ease, transform .25s ease, visibility .25s ease;
     }
 
     .promo-banner.visible {
       opacity: 1;
-      transform: translateY(0);
-      pointer-events: auto;
+      visibility: visible;
+      transform: translate(-50%, -50%);
+    }
+
+    .promo-banner::before {
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      content: "";
+      background: linear-gradient(135deg, rgba(255,255,255,.08), transparent 60%);
+      pointer-events: none;
+    }
+
+    .promo-header {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+
+    .promo-kicker {
+      margin: 0;
+      color: #d5d0c4;
+      font-size: .62rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .promo-close {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      color: var(--ink);
+      min-width: 32px;
+      min-height: 32px;
+      cursor: pointer;
+      font-size: .8rem;
     }
 
     .promo-banner p {
-      margin: 0 0 10px;
+      position: relative;
+      margin: 0 0 12px;
       color: var(--ink);
-      font-size: .82rem;
-      line-height: 1.45;
+      font-size: .96rem;
+      line-height: 1.5;
+      text-align: center;
     }
 
     .promo-actions {
+      position: relative;
       display: flex;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
       flex-wrap: wrap;
     }
 
@@ -422,18 +462,27 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 36px;
-      padding: 0 12px;
-      border: 1px solid rgba(255, 255, 255, .18);
+      min-height: 42px;
+      padding: 0 18px;
+      border: 1px solid rgba(255,255,255,.14);
       border-radius: 999px;
       color: var(--ink);
       text-decoration: none;
-      background: rgba(255, 255, 255, .04);
-      font-size: .72rem;
+      background: rgba(255, 255, 255, .05);
+      font-size: .74rem;
       font-weight: 700;
-      letter-spacing: .08em;
+      letter-spacing: .12em;
       text-transform: uppercase;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
     }
+
+    .promo-actions a:hover {
+      transform: translateY(-1px);
+      border-color: rgba(255,255,255,.28);
+      background: rgba(255,255,255,.08);
+    }
+
+    audio { display: none; }
 
     footer {
       display: flex;
@@ -484,192 +533,26 @@
     }
 
     .drawer .made-by {
-   margin: 0;
-   padding: 2px 0 4px;
-   text-align: right;
-   color: rgba(255, 255, 255, .55);
-   font-size: .62rem;
-   letter-spacing: .14em;
- }
+      margin: 0;
+      padding: 2px 0 4px;
+      text-align: right;
+      color: rgba(255, 255, 255, .55);
+      font-size: .62rem;
+      letter-spacing: .14em;
+    }
 
-.drawer .made-by a {
-   display: inline;
-   padding: 0;
-   color: var(--ink);
-   font-weight: 800;
-   text-decoration: underline;
-   text-underline-offset: 3px;
- }
+    .drawer .made-by a {
+      display: inline;
+      padding: 0;
+      color: var(--ink);
+      font-weight: 800;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
 
     @media (min-width: 900px) {
       .page { width: min(430px, 100%); padding-top: 18px; }
       .hero { min-height: 250px; }
-    }
-
-
-    /* ===== SHOP ===== */
-    .shop {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      margin-top: 16px;
-      border: 1px solid rgba(255, 255, 255, .14);
-      border-radius: 22px;
-      background: #0a0a0b;
-      box-shadow: 0 22px 50px rgba(0, 0, 0, .5);
-      scroll-margin-top: 12px;
-    }
-
-    .shop { display: none; }
-
-    .shop-bg {
-      position: absolute;
-      z-index: -3;
-      inset: -6%;
-      background: #111 url("chiesa_bn.jpg") center 30% / cover no-repeat;
-      filter: grayscale(1) contrast(1.2) brightness(.62);
-      animation: shop-drift 26s ease-in-out infinite alternate;
-    }
-
-    .shop::before {
-      position: absolute;
-      z-index: -2;
-      inset: 0;
-      content: "";
-      background:
-        radial-gradient(60% 42% at 50% 46%, rgba(255, 255, 255, .26), transparent 70%),
-        linear-gradient(180deg, rgba(5, 5, 6, .55) 0%, rgba(5, 5, 6, .05) 30%, rgba(5, 5, 6, .35) 62%, rgba(5, 5, 6, .94) 100%);
-    }
-
-    .shop::after {
-      position: absolute;
-      z-index: -1;
-      inset: 0;
-      content: "";
-      pointer-events: none;
-      background:
-        repeating-linear-gradient(0deg, rgba(0, 0, 0, .16) 0 1px, transparent 1px 3px),
-        url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.08'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
-      mix-blend-mode: overlay;
-      opacity: .5;
-      animation: shop-grain 1.2s steps(4) infinite;
-    }
-
-    .shop-head { padding: 16px 18px 0; }
-
-    .shop-title {
-      margin: 4px 0 0;
-      font-family: UnifrakturMaguntia, "Times New Roman", serif;
-      font-size: 2.1rem;
-      font-weight: 400;
-      line-height: 1;
-      text-shadow: 0 3px 14px rgba(0, 0, 0, .7);
-    }
-
-    .shop-stage {
-      position: relative;
-      display: grid;
-      min-height: 330px;
-      place-items: center;
-      padding: 6px 18px 0;
-    }
-
-    .shop-stage::before {
-      position: absolute;
-      inset: 0;
-      content: "";
-      background: conic-gradient(from 180deg at 50% 38%, transparent 0 40deg, rgba(255, 255, 255, .10) 55deg, transparent 70deg 110deg, rgba(255, 255, 255, .08) 125deg, transparent 140deg 220deg, rgba(255,255,255,.12) 240deg, transparent 270deg 320deg, rgba(255,255,255,.06) 335deg, transparent 360deg);
-      -webkit-mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
-      mask-image: radial-gradient(70% 70% at 50% 45%, #000, transparent 80%);
-      animation: shop-rays 14s ease-in-out infinite alternate;
-    }
-
-    .shirt {
-      grid-area: 1 / 1;
-      width: min(300px, 80%);
-      height: auto;
-      filter: drop-shadow(0 26px 22px rgba(0, 0, 0, .7)) drop-shadow(0 0 28px rgba(255, 255, 255, .12));
-      opacity: 0;
-      transform: translateY(8px) scale(.96) rotate(-1.5deg);
-      transition: opacity .55s ease, transform .7s cubic-bezier(.2, .8, .2, 1);
-      pointer-events: none;
-    }
-
-    .shirt.on {
-      opacity: 1;
-      transform: none;
-      animation: shirt-float 6s ease-in-out infinite;
-    }
-
-    .shop-toggle {
-      position: absolute;
-      top: 10px;
-      right: 18px;
-      display: flex;
-      padding: 3px;
-      border: 1px solid rgba(255, 255, 255, .2);
-      border-radius: 999px;
-      background: rgba(8, 8, 9, .6);
-      backdrop-filter: blur(10px);
-    }
-
-    .shop-toggle button {
-      min-height: 30px;
-      padding: 0 12px;
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      color: #b9b6ae;
-      font-size: .66rem;
-      font-weight: 700;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background .2s ease, color .2s ease;
-    }
-
-    .shop-toggle button[aria-pressed="true"] { background: #f3f1ec; color: #0a0a0b; }
-
-    .shop-info {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 14px;
-      padding: 8px 18px 18px;
-    }
-
-    .shop-name { margin: 0; font-size: .98rem; font-weight: 700; }
-    .shop-sub { margin: 3px 0 0; color: #a9a7a1; font-size: .74rem; }
-
-    .buy-btn {
-      display: inline-flex;
-      flex: none;
-      align-items: center;
-      gap: 8px;
-      min-height: 46px;
-      padding: 0 22px;
-      border-radius: 999px;
-      background: #f3f1ec;
-      color: #0a0a0b;
-      font-size: .78rem;
-      font-weight: 800;
-      letter-spacing: .16em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: transform .2s ease, box-shadow .2s ease;
-    }
-
-    .buy-btn:hover { transform: translateY(-1px) scale(1.03); box-shadow: 0 0 26px rgba(255, 255, 255, .3); }
-    .buy-btn svg { width: 16px; height: 16px; }
-
-    @keyframes shop-drift { from { transform: scale(1) translate(0, 0); } to { transform: scale(1.1) translate(-2%, 1.5%); } }
-    @keyframes shop-rays { from { transform: rotate(-3deg) scale(1); opacity: .7; } to { transform: rotate(3deg) scale(1.06); opacity: 1; } }
-    @keyframes shop-grain { 0% { transform: translate(0, 0); } 25% { transform: translate(-3%, 2%); } 50% { transform: translate(2%, -3%); } 75% { transform: translate(-2%, -1%); } 100% { transform: translate(1%, 2%); } }
-    @keyframes shirt-float { 0%, 100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-7px) rotate(.6deg); } }
-
-    @media (max-width: 380px) {
-      .shop-info { flex-direction: column; align-items: stretch; }
-      .buy-btn { justify-content: center; }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -729,8 +612,9 @@
 
     <section class="video-card" aria-label="Video ufficiale">
       <div class="video-head">Video</div>
-      <video id="promo-video" controls preload="metadata" playsinline poster="FOTO/cover.jpg">
-        <source src="FOTO/santySG-Di-SnapYT.App.webm" type="video/mp4">
+      <video id="promo-video" autoplay muted loop playsinline preload="metadata" poster="FOTO/cover.jpg">
+        <source src="FOTO/santySG-Di-SnapYT.App.webm" type="video/webm">
+        <source src="FOTO/SANTY_BG.mp4" type="video/mp4">
       </video>
     </section>
 
@@ -745,7 +629,7 @@
       <div class="now-playing">
         <div class="cover" role="img" aria-label="Copertina SANTY"></div>
         <div>
-          <p class="track-title" id="track-title">SG</p>
+          <p class="track-title" id="track-title">DI PIÙ</p>
           <p class="track-artist">SANTY</p>
         </div>
         <button class="play-button" id="play-button" type="button" aria-label="Riproduci">
@@ -759,7 +643,7 @@
       </div>
 
       <div class="track-list" id="track-list" aria-label="Brani">
-        <button class="track" type="button" data-index="0" aria-current="true">
+        <button class="track" type="button" data-index="0">
           <span class="track-number">01</span>
           <span class="track-name">SG</span>
           <span class="track-length">—:—</span>
@@ -779,7 +663,7 @@
           <span class="track-name">APACHE</span>
           <span class="track-length">—:—</span>
         </button>
-        <button class="track" type="button" data-index="4">
+        <button class="track" type="button" data-index="4" aria-current="true">
           <span class="track-number">05</span>
           <span class="track-name">DI PIÙ</span>
           <span class="track-length">—:—</span>
@@ -801,7 +685,7 @@
         </button>
       </div>
       <p class="player-message" id="player-message" role="status" aria-live="polite"></p>
-      <audio id="audio" preload="metadata"></audio>
+      <audio id="audio" preload="metadata" autoplay></audio>
     </section>
 
   </main>
@@ -812,7 +696,11 @@
   </footer>
 
   <div id="listen-banner" class="promo-banner" role="dialog" aria-live="polite" aria-label="Scelta ascolto">
-    <p>Hai appena ascoltato 20 secondi: ti va di proseguire su Spotify o YouTube?</p>
+    <div class="promo-header">
+      <p class="promo-kicker">Ascolta</p>
+      <button class="promo-close" type="button" aria-label="Chiudi banner">✕</button>
+    </div>
+    <p>Hai appena ascoltato 15 secondi: vuoi continuare su Spotify o YouTube?</p>
     <div class="promo-actions">
       <a href="https://open.spotify.com/intl-it/artist/2qRcwxxRSwHGgnRjLZ1tHU?si=NL9oJBdKRNuR7UqTgQO_OA" target="_blank" rel="noopener noreferrer">Spotify</a>
       <a href="https://www.youtube.com/@santyySG" target="_blank" rel="noopener noreferrer">YouTube</a>
@@ -832,6 +720,7 @@
         { title: "ALLA FINE", src: "CANZONI/EP%20SG/ALLA%20FINE%20-%20santySG.mp3" }
       ];
       const audio = document.querySelector("#audio");
+      const video = document.querySelector("#promo-video");
       const playButton = document.querySelector("#play-button");
       const playIcon = document.querySelector("#play-icon");
       const title = document.querySelector("#track-title");
@@ -843,10 +732,11 @@
       const menuBtn = document.querySelector("#menu-btn");
       const menu = document.querySelector("#menu");
       const promoBanner = document.querySelector("#listen-banner");
-      const promoVideo = document.querySelector("#promo-video");
+      const promoClose = document.querySelector(".promo-close");
       const playPath = "M8 5.5v13l11-6.5L8 5.5z";
       const pausePath = "M7 6h3.2v12H7zm6.8 0H17v12h-3.2z";
-      let activeTrack = 0;
+      const AUTO_BANNER_DELAY = 15000;
+      let activeTrack = 4;
       let bannerTriggered = false;
 
       const formatTime = (seconds) => {
@@ -863,8 +753,12 @@
       const showPromoBanner = () => {
         if (bannerTriggered) return;
         bannerTriggered = true;
-        audio.pause();
+        if (!audio.paused) audio.pause();
         promoBanner.classList.add("visible");
+      };
+
+      const hidePromoBanner = () => {
+        promoBanner.classList.remove("visible");
       };
 
       const loadTrack = (index) => {
@@ -898,10 +792,14 @@
       trackButtons.forEach((button) => {
         button.addEventListener("click", () => {
           bannerTriggered = false;
-          promoBanner.classList.remove("visible");
+          hidePromoBanner();
           loadTrack(Number(button.dataset.index));
           play();
         });
+      });
+
+      promoClose.addEventListener("click", () => {
+        hidePromoBanner();
       });
 
       audio.addEventListener("play", () => {
@@ -921,7 +819,7 @@
         if (Number.isFinite(audio.duration) && audio.duration > 0) {
           setPlayed((audio.currentTime / audio.duration) * 100);
         }
-        if (audio.currentTime >= 20 && !bannerTriggered) {
+        if (audio.currentTime >= 15 && !bannerTriggered) {
           showPromoBanner();
         }
       });
@@ -939,16 +837,8 @@
         }
       });
 
-      promoVideo.addEventListener("play", async () => {
-        if (!bannerTriggered) {
-          try {
-            await audio.play();
-          } catch {}
-        }
-      });
-
-      promoVideo.addEventListener("pause", () => {
-        audio.pause();
+      video.addEventListener("loadeddata", () => {
+        video.play().catch(() => {});
       });
 
       const closeMenu = () => {
@@ -980,7 +870,15 @@
         });
       });
 
-      loadTrack(0);
+      loadTrack(4);
+      setTimeout(() => {
+        play();
+      }, 300);
+      setTimeout(() => {
+        if (!bannerTriggered) {
+          showPromoBanner();
+        }
+      }, AUTO_BANNER_DELAY);
       document.querySelector("#year").textContent = new Date().getFullYear();
     })();
   </script>
