@@ -775,14 +775,7 @@
         });
       };
 
-      const play = async () => {
-        message.textContent = "";
-        try {
-          await audio.play();
-        } catch {
-          message.textContent = "Impossibile riprodurre il brano. Verifica che i file audio siano presenti.";
-        }
-      };
+
 
       playButton.addEventListener("click", () => {
         if (audio.paused) play();
